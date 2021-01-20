@@ -21,39 +21,44 @@ require 'byebug'
 # liste des emails des mairie du 95
 
 
-url_liste95 = "http://annuaire-des-mairies.com/val-d-oise.html"
+page_list = Nokogiri::HTML(URI.open("http://annuaire-des-mairies.com/val-d-oise.html"))
 
-doc = Nokogiri::HTML(URI.open(url_liste95))
-
-list = doc.xpath('//*[@class="lientxt"]')
-list_href = doc.xpath('//a[@class="lientxt"]/@href ')
-list_name = doc.xpath('//a[@class="lientxt"] ').text
-
-city_contact = {}
+list = page_list.xpath('//*[@class="lientxt"]')
+#list_href = page_list.xpath('//a[@class="lientxt"]/@href ')
+#list_name = page_list.xpath('//a[@class="lientxt"] ').text
 
 
+array_city_contact = []
+url_begin = "http://annuaire-des-mairies.com"
 
 list.each do |city|
-  url_begin = "http://annuaire-des-mairies.com/"
-  puts city.content.downcase.capitalize # => donne le nom de la ville
-  # puts city.xpath('//a[@class="lientxt"]/@href ').to_s.split("./")
-  #puts url_begin 
-  #url_end = city.xpath('//a[@class="lientxt"]/@href ')
-end
+  city_contact = {}
+  # city.content # => donne le nom de chaque ville issue de la page list des villes
+  city_link = city['href'] # => donne la partie de l'URL correspondant à la ville
+  city_url = url_begin + city_link[1..-1]
 
+  page_city = Nokogiri::HTML(URI.open(city_url))
+  city_email = page_city.xpath('/html/body/div[1]/main/section[2]/div/table/tbody/tr[4]/td[2]').text
+  city_contact[city.content.downcase] = city_email
+  array_city_contact << city_contact
 
-def get_all_urls
-	url_liste95 = "http://annuaire-des-mairies.com/val-d-oise.html"
-	doc = Nokogiri::HTML(URI.open(url_liste95))
-	list_href = doc.xpath('//a[@class="lientxt"]/@href ').to_s.split("./")
-	full_url = ""
-
-	list_href.each do |urlend|
-		full_url = "http://annuaire-des-mairies.com/" + urlend
-		puts full_url
-	end
+  puts array_city_contact
 
 end
+
+
+# def get_all_urls
+# 	url_liste95 = "http://annuaire-des-mairies.com/val-d-oise.html"
+# 	doc = Nokogiri::HTML(URI.open(url_liste95))
+# 	list_href = doc.xpath('//a[@class="lientxt"]/@href ').to_s.split("./")
+# 	full_url = ""
+
+# 	list_href.each do |urlend|
+# 		full_url = "http://annuaire-des-mairies.com/" + urlend
+# 		puts full_url
+# 	end
+
+# end
 
 #get_all_urls
 
@@ -72,7 +77,7 @@ end
 
 
 
-#//*[@id="voyance-par-telephone"]/table/tbody/tr[2]/td/table/tbody
+
 
 
 
