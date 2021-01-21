@@ -8,15 +8,13 @@ require 'byebug'
 
 # mail mairie des Avernes
 
-# def get_townhall_email
-#   url = "http://annuaire-des-mairies.com/95/avernes.html"
-#   doc = Nokogiri::HTML(URI.open(url))
-#   email = doc.xpath('/html/body/div[1]/main/section[2]/div/table/tbody/tr[4]/td[2]').text
-#   puts email
-# end
+def get_townhall_email(url)
+  doc = Nokogiri::HTML(URI.open(url))
+  email = doc.xpath('/html/body/div[1]/main/section[2]/div/table/tbody/tr[4]/td[2]').text
+  return email
+end
 
-
-# get_townhall_email
+# puts get_townhall_email("http://annuaire-des-mairies.com/95/avernes.html")
 
 # liste des emails des mairie du 95
 

@@ -18,7 +18,7 @@ rows = doc.xpath('//*[@id="__next"]/div[1]/div[2]/div/div[1]/div/div[2]/div[3]/d
 #   print a.content
 # end
 
-# affiche un array de hash contenant en key les nom des crypto et leur valeur en value
+# affiche un array de hash contenant en key les noms des crypto et leur valeur en value
 
 array_crypto =[]
 rows.collect do |row|

@@ -7,7 +7,6 @@ require 'httparty'
 require 'byebug'
 
 
-
 # def get_deputy_email
 #   url = "https://www.nosdeputes.fr/francois-michel-lambert"
 #   doc = Nokogiri::HTML(URI.open(url))
@@ -40,13 +39,15 @@ page_list.each do |full_name|
   # creation des données du hash
   deputy_contact['first_name'] = name_url_reverse[0]
   deputy_contact['last_name'] = name_url_reverse[1]
-  
-  deputy_contact['email'] = get_deputy_email(deputy_url)
-
+  begin
+    deputy_contact['email'] = get_deputy_email(deputy_url)
+  rescue
+      next
+  end
   print deputy_contact
 end
+
 
  #get_deputy_email("https://www.nosdeputes.fr/eric-alauzet")
  #get_deputy_email("https://www.nosdeputes.fr/bruno-nestor-azerot")
  
-
