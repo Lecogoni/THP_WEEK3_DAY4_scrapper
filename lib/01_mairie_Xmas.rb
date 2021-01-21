@@ -47,20 +47,7 @@ list.each do |city|
 end
 
 
-# def get_all_urls
-# 	url_liste95 = "http://annuaire-des-mairies.com/val-d-oise.html"
-# 	doc = Nokogiri::HTML(URI.open(url_liste95))
-# 	list_href = doc.xpath('//a[@class="lientxt"]/@href ').to_s.split("./")
-# 	full_url = ""
 
-# 	list_href.each do |urlend|
-# 		full_url = "http://annuaire-des-mairies.com/" + urlend
-# 		puts full_url
-# 	end
-
-# end
-
-#get_all_urls
 
 
 
